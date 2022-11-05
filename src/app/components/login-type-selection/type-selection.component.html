@@ -1,0 +1,21 @@
+<div class="login-selection">
+	<div class="type-container">
+		<div class="heading">Wissal Tenders</div>
+
+		<div class="d-flex flex-column">
+			<div class="d-flex flex-wrap justify-content-between">
+				<div class="login-type" *ngFor="let type of loginTypes"
+					(mouseenter)="onMouseEnter(type)" 
+					(mouseleave)="onMouseLeave(type)">
+					<img [src]="type.image" alt="Type Image" class="image">
+					<div class="title">{{ type.title }}</div>
+
+					<div class="actions" [class.show]="type.visible">
+						<button class="btn" (click)="onLogin(type)">Login</button>
+						<button class="btn" (click)="onCreateNewAccount(type)">New Account</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
