@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { LoginType } from 'src/app/models';
 import { ApiService } from 'src/app/services/api.service';
 
@@ -11,25 +12,27 @@ import { ApiService } from 'src/app/services/api.service';
 export class LoginTypeSelectionComponent implements OnInit {
 	loginTypes: LoginType[];
 	
-	constructor(private apiService: ApiService) {
+	constructor(private apiService: ApiService, 
+				private router: Router) 
+	{
 		this.loginTypes = [
 			{
-				title: 'Client',
+				type: 'Client',
 				image: '/assets/images/client.svg',
 				visible: false
 			},
 			{
-				title: 'Supplier',
+				type: 'Supplier',
 				image: '/assets/images/supplier.svg',
 				visible: false
 			},
 			{
-				title: 'Contractor',
+				type: 'Contractor',
 				image: '/assets/images/supplier.svg',
 				visible: false
 			},
 			{
-				title: 'Consultant',
+				type: 'Consultant',
 				image: '/assets/images/consultant.svg',
 				visible: false
 			}
@@ -53,10 +56,10 @@ export class LoginTypeSelectionComponent implements OnInit {
 	}
 
 	onLogin(type: LoginType): void {
-
+		this.router.navigate(['login', type.type]);
 	}
 
 	onCreateNewAccount(type: LoginType): void {
-		
+		this.router.navigate(['create-account', type.type]);
 	}
 }

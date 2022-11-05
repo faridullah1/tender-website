@@ -1,5 +1,7 @@
+export type LoginAccountType = 'Client' | 'Supplier' | 'Contractor' | 'Consultant';
+
 export interface LoginType {
-	title: string;
+	type: LoginAccountType;
 	image: string;
 	visible: boolean;
 }

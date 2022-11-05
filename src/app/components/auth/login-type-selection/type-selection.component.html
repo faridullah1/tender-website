@@ -8,7 +8,7 @@
 					(mouseenter)="onMouseEnter(type)" 
 					(mouseleave)="onMouseLeave(type)">
 					<img [src]="type.image" alt="Type Image" class="image">
-					<div class="title">{{ type.title }}</div>
+					<div class="title">{{ type.type }}</div>
 
 					<div class="actions" [class.show]="type.visible">
 						<button class="btn" (click)="onLogin(type)">Login</button>

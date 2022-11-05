@@ -2,18 +2,22 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { ContactUsComponent } from './components/contact-us/contact-us.component';
-import { LoginTypeSelectionComponent } from './components/login-type-selection/type-selection.component';
+import { LoginTypeSelectionComponent } from './components/auth/login-type-selection/type-selection.component';
 import { ProjectsComponent } from './components/projects/projects.component';
 import { TendersComponent } from './components/tenders/tenders.component';
 import { TermsComponent } from './components/terms/terms.component';
+import { LoginComponent } from './components/auth/login/login.component';
+import { CreateAccountComponent } from './components/auth/create-account/create-account.component';
 
 const routes: Routes = [
-	{ path: '', redirectTo: 'login', pathMatch: 'full' },
+	{ path: '', redirectTo: 'login-type', pathMatch: 'full' },
 	{ path: 'tenders', component: TendersComponent },
 	{ path: 'projects', component: ProjectsComponent },
 	{ path: 'terms', component: TermsComponent },
 	{ path: 'contact_us', component: ContactUsComponent },
-	{ path: 'login', component: LoginTypeSelectionComponent }
+	{ path: 'login-type', component: LoginTypeSelectionComponent },
+	{ path: 'login', component: LoginComponent },
+	{ path: 'create-account/:type', component: CreateAccountComponent },
 ];
 
 @NgModule({
