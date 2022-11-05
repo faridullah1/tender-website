@@ -1,0 +1,10 @@
+.app-container {
+	font-size: 1.6rem;
+	height: 100vh;
+
+	.main {
+		padding: 2rem;
+    	background: #f8f8f8;
+		height: calc(100% - 6rem);
+	}
+}

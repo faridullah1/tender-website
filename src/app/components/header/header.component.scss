@@ -1,0 +1,25 @@
+.navbar {
+	height: 6rem;
+	padding: 0 3rem;
+	background-color: #fff;
+	box-shadow: rgb(56 69 84 / 10%) 0 1px 6px;
+
+	.navbar-brand {
+		font-size: 2rem;
+	}
+
+	ul {
+		height: 100%;
+
+		li {
+			display: flex;
+			align-items: center;
+			padding: 0 1.7rem;
+			cursor: pointer;
+
+			&:hover {
+				background-color: var(--color-gray);
+			}
+		}
+	}
+}
