@@ -17,7 +17,7 @@ const routes: Routes = [
 	{ path: 'terms', component: TermsComponent },
 	{ path: 'contact_us', component: ContactUsComponent },
 	{ path: 'login-type', component: LoginTypeSelectionComponent },
-	{ path: 'login', component: LoginComponent },
+	{ path: 'login/:type', component: LoginComponent },
 	{ path: 'create-account/:type', component: CreateAccountComponent },
 	{ path: 'confirm/:confirmationCode', component: VerifyEmailComponent },
 
