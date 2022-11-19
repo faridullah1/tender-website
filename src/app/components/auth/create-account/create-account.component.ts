@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { GenericApiResponse, LoginAccountType } from './../../../models';
 
@@ -13,12 +13,13 @@ import { GenericApiResponse, LoginAccountType } from './../../../models';
 export class CreateAccountComponent {
 	accountType: LoginAccountType = 'Client';
 	isMobileVerfied = false;
-	verificationCode!: number;
+	verificationCode: number | null = null; 
 	theForm: FormGroup;
 	disableVerifyBtn = false;
+	disableSubmitBtn = false;
+	message: string = '';
 
 	constructor(private route: ActivatedRoute,
-				private router: Router, 
 				private apiService: ApiService) 
 	{
 		this.accountType = route.snapshot.params['type'] as LoginAccountType;
@@ -28,7 +29,7 @@ export class CreateAccountComponent {
 			mobileNumber: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]),
 			email: new FormControl('', [Validators.required]),
 			password: new FormControl('', [Validators.required]),
-			confirmPassword: new FormControl('', [Validators.required]),
+			confirmPassword: new FormControl('', [Validators.required])
 		});
 	}
 
@@ -67,10 +68,22 @@ export class CreateAccountComponent {
 	onSubmit(): void {
 		if (!this.isMobileVerfied) return;
 
-		this.apiService.post('/users', this.theForm.value).subscribe({
+		this.disableSubmitBtn = true;
+
+		const payload = this.theForm.value;
+		payload.type = this.accountType;
+		payload.confirmPassword = undefined;
+
+		this.apiService.post('/users', payload).subscribe({
 			next: (resp: GenericApiResponse) => {
-				this.router.navigateByUrl('login');
-			}
+				this.disableSubmitBtn = false;
+
+				this.message = resp.message;
+				this.verificationCode = null;
+				this.isMobileVerfied = false;
+				this.theForm.reset();
+			},
+			error: () => this.disableSubmitBtn = false
 		})
 	}
 }

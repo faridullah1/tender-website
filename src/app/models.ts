@@ -3,6 +3,7 @@ export type LoginAccountType = 'Client' | 'Supplier' | 'Contractor' | 'Consultan
 export interface GenericApiResponse {
 	status: 'success' | 'fail' | 'error',
 	data: any;
+	message: string;
 }
 
 export interface LoginType {

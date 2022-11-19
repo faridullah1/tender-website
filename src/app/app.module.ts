@@ -15,6 +15,7 @@ import { ContactUsComponent } from './components/contact-us/contact-us.component
 import { TermsComponent } from './components/terms/terms.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { CreateAccountComponent } from './components/auth/create-account/create-account.component';
+import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { CreateAccountComponent } from './components/auth/create-account/create-
     ContactUsComponent,
     TermsComponent,
     LoginComponent,
-    CreateAccountComponent
+    CreateAccountComponent,
+    VerifyEmailComponent
   ],
   imports: [
     BrowserModule,
