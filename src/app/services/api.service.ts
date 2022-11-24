@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 import { GenericApiResponse } from '../models';
 
 
@@ -10,13 +11,19 @@ import { GenericApiResponse } from '../models';
 export class ApiService {
 	private baseUrl = '/api';
 
-  	constructor(private http: HttpClient) { }
+  	constructor(private http: HttpClient, private router: Router) { }
 
 	get(slug: string): Observable<any> {
-		return this.http.get(this.baseUrl + slug);
+		return this.http.get(this.baseUrl + slug).pipe(catchError(this.handleError));
 	}
 
-	post(slug: string, payload: any): Observable<GenericApiResponse> {
-		return this.http.post<GenericApiResponse>(this.baseUrl + slug, payload);
+	post(slug: string, payload: any): Observable<any> {
+		return this.http.post<GenericApiResponse>(this.baseUrl + slug, payload).pipe(catchError((error) => this.handleError(error)));;
+	}
+
+	private handleError(err: HttpErrorResponse) {
+		if (err.status === 401) this.router.navigateByUrl('/login-type');
+
+		return throwError(() => new Error(err.error.message));
 	}
 }

@@ -3,6 +3,7 @@ import { GenericApiResponse, LoginAccountType } from './../../../models';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -16,6 +17,7 @@ export class LoginComponent {
 	loginType: LoginAccountType = 'Client';
 
 	constructor(private fb: FormBuilder, 
+				private toaster: ToastrService,
 				private apiService: ApiService,
 				private route: ActivatedRoute,
 				private router: Router) 
@@ -30,9 +32,16 @@ export class LoginComponent {
 
 	onLogin(): void {
 		this.disableLoginBtn = true;
-		this.apiService.post('/login', this.theForm.value).subscribe({
-			next: (resp: GenericApiResponse) => this.router.navigateByUrl('/projects'),
-			error: (error: any) => this.disableLoginBtn = false
+		this.apiService.post('/auth/login', this.theForm.value).subscribe({
+			next: (resp: GenericApiResponse) => {
+				const token = resp.access_token;
+				localStorage.setItem('token', token);
+				this.router.navigateByUrl('/tenders')
+			},
+			error: (error: any) => {
+				this.disableLoginBtn = false,
+				this.toaster.error(error);
+			}
 		});
 	}
 }

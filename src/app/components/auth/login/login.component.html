@@ -6,11 +6,19 @@
 			<div class="form-group col">
 				<label for="email">Email</label>
 				<input id="email" type="email" class="form-control" placeholder="Enter Email" formControlName="email">
+
+				<div class="alert alert-danger" *ngIf="theForm.get('email')?.touched && theForm.get('email')?.invalid">
+					<div *ngIf="theForm.get('email')?.hasError('required')">Email is required</div>
+					<div *ngIf="theForm.get('email')?.hasError('email')">Email is invalid</div>
+				</div>
 			</div>
 
 			<div class="form-group col">
 				<label for="password">Password</label>
 				<input id="password" type="password" class="form-control" placeholder="Enter Password" formControlName="password">
+				<div class="alert alert-danger" *ngIf="theForm.get('password')?.touched && theForm.get('password')?.invalid">
+					<div *ngIf="theForm.get('password')?.hasError('required')">Password is required</div>
+				</div>
 			</div>
 			
 			<div class="actions">
