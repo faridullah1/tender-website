@@ -12,3 +12,10 @@ export interface LoginType {
 	image: string;
 	visible: boolean;
 }
+
+export interface UserInfo {
+	id: number;
+	name: string;
+	email: string;
+	type: LoginAccountType;
+}

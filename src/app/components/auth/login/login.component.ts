@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 @Component({
@@ -18,7 +19,7 @@ export class LoginComponent {
 
 	constructor(private fb: FormBuilder, 
 				private toaster: ToastrService,
-				private apiService: ApiService,
+				private authService: AuthService,
 				private route: ActivatedRoute,
 				private router: Router) 
 	{
@@ -32,11 +33,12 @@ export class LoginComponent {
 
 	onLogin(): void {
 		this.disableLoginBtn = true;
-		this.apiService.post('/auth/login', this.theForm.value).subscribe({
+		this.authService.login(this.theForm.value).subscribe({
 			next: (resp: GenericApiResponse) => {
 				const token = resp.access_token;
 				localStorage.setItem('token', token);
-				this.router.navigateByUrl('/tenders')
+				this.authService.setUserInfo()
+				this.router.navigateByUrl('/tenders');
 			},
 			error: (error: any) => {
 				this.disableLoginBtn = false,
