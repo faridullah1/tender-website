@@ -22,8 +22,16 @@ export class ApiService {
 	}
 
 	private handleError(err: HttpErrorResponse) {
-		if (err.status === 401) this.router.navigateByUrl('/login-type');
+		let errorMessage = err.error.message || err.message;
 
-		return throwError(() => new Error(err.error.message));
+		if (err.status === 401) {
+			this.router.navigateByUrl('/login-type');
+		}
+
+		if (err.status === 504) {
+			errorMessage = 'Gateway Timeout';
+		}
+
+		return throwError(() => new Error(errorMessage));
 	}
 }

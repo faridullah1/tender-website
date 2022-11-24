@@ -8,7 +8,7 @@ import { TendersComponent } from './components/tenders/tenders.component';
 import { TermsComponent } from './components/terms/terms.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { CreateAccountComponent } from './components/auth/create-account/create-account.component';
-import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
+import { VerifyEmailComponent } from './components/auth/verify-email/verify-email.component';
 
 const routes: Routes = [
 	{ path: '', redirectTo: 'login-type', pathMatch: 'full' },

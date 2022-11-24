@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import Validation from 'src/app/common/validators';
 import { ApiService } from 'src/app/services/api.service';
 import { GenericApiResponse, LoginAccountType } from './../../../models';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -22,6 +23,7 @@ export class CreateAccountComponent {
 
 	constructor(private route: ActivatedRoute,
 				private fb: FormBuilder,
+				private toaster: ToastrService,
 				private apiService: ApiService) 
 	{
 		this.accountType = route.snapshot.params['type'] as LoginAccountType;
@@ -59,7 +61,10 @@ export class CreateAccountComponent {
 				this.disableVerifyBtn = false;
 				this.verificationCode = resp.data.code;
 			},
-			error: () => this.disableVerifyBtn = false
+			error: (errorMessage: string) => {
+				this.disableVerifyBtn = false;
+				this.toaster.error(errorMessage);
+			}
 		});
 	}
 
@@ -85,7 +90,10 @@ export class CreateAccountComponent {
 				this.isMobileVerfied = false;
 				this.theForm.reset();
 			},
-			error: () => this.disableSubmitBtn = false
+			error: (errorMessage: string) => {
+				this.disableSubmitBtn = false;
+				this.toaster.error(errorMessage);
+			}
 		})
 	}
 }

@@ -33,8 +33,7 @@
 					</div>
 
 					<div class="d-flex mt-3" *ngIf="verificationCode && !isMobileVerfied">
-						<input type="number" class="form-control verify-field" #code
-							(keydown)="numericOnly($event)" placeholder="Enter 4 digits Verification Code">
+						<input class="form-control verify-field" #code (keydown)="numericOnly($event)" placeholder="Code">
 						<small *ngIf="isMobileVerfied" class="form-text text-danger">Invalid Verification Code.</small>
 						
 						<button class="btn btn-primary px-2"  
