@@ -22,4 +22,11 @@
 			}
 		}
 	}
+
+	.active {
+		background: rgba(138, 21, 56, 0.05);
+   		a {
+			color: var(--color-primary) !important;
+		}
+	}
 }
