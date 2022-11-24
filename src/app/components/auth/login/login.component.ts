@@ -2,7 +2,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { GenericApiResponse, LoginAccountType } from './../../../models';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component } from '@angular/core';
-import { ApiService } from 'src/app/services/api.service';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -33,7 +32,11 @@ export class LoginComponent {
 
 	onLogin(): void {
 		this.disableLoginBtn = true;
-		this.authService.login(this.theForm.value).subscribe({
+
+		const payload = this.theForm.value;
+		payload.type = this.loginType;
+
+		this.authService.login(payload).subscribe({
 			next: (resp: GenericApiResponse) => {
 				const token = resp.access_token;
 				localStorage.setItem('token', token);

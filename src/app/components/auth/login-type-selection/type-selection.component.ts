@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginType } from 'src/app/models';
 import { ApiService } from 'src/app/services/api.service';
@@ -9,7 +9,7 @@ import { ApiService } from 'src/app/services/api.service';
   templateUrl: './type-selection.component.html',
   styleUrls: ['./type-selection.component.scss']
 })
-export class LoginTypeSelectionComponent implements OnInit {
+export class LoginTypeSelectionComponent {
 	loginTypes: LoginType[];
 	
 	constructor(private apiService: ApiService, 
@@ -37,12 +37,6 @@ export class LoginTypeSelectionComponent implements OnInit {
 				visible: false
 			}
 		]
-	}
-
-	ngOnInit(): void {
-		this.apiService.get('/login').subscribe(resp => {
-			console.log(resp);
-		});
 	}
 
 	onMouseEnter(type: LoginType): void {

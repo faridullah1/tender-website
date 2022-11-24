@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import Validation from 'src/app/common/validators';
 import { ApiService } from 'src/app/services/api.service';
 import { GenericApiResponse, LoginAccountType } from './../../../models';
 
@@ -20,17 +21,18 @@ export class CreateAccountComponent {
 	message: string = '';
 
 	constructor(private route: ActivatedRoute,
+				private fb: FormBuilder,
 				private apiService: ApiService) 
 	{
 		this.accountType = route.snapshot.params['type'] as LoginAccountType;
 
-		this.theForm = new FormGroup({
+		this.theForm = fb.group({
 			name: new FormControl('', [Validators.required]),
 			mobileNumber: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]),
 			email: new FormControl('', [Validators.required]),
 			password: new FormControl('', [Validators.required]),
 			confirmPassword: new FormControl('', [Validators.required])
-		});
+		}, { validators: [Validation.match('password', 'confirmPassword')]});
 	}
 
 	numericOnly(ev: any): boolean
