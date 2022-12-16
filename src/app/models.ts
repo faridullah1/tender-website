@@ -14,7 +14,7 @@ export interface LoginType {
 }
 
 export interface UserInfo {
-	userId: number;
+	id: number;
 	name: string;
 	email: string;
 	type: LoginAccountType;

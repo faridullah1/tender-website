@@ -23,8 +23,9 @@ import { TermsComponent } from './components/terms/terms.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { CreateAccountComponent } from './components/auth/create-account/create-account.component';
 import { VerifyEmailComponent } from './components/auth/verify-email/verify-email.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AddProjectComponent } from './components/projects/add-project/add-project.component';
+import { ModalModule } from 'ngx-bootstrap/modal';
+
 
 @NgModule({
   declarations: [
@@ -33,7 +34,7 @@ import { AddProjectComponent } from './components/projects/add-project/add-proje
     FooterComponent,
     LoginTypeSelectionComponent,
     TendersComponent,
-    ProjectsComponent,
+	ProjectsComponent,
     ContactUsComponent,
     TermsComponent,
     LoginComponent,
@@ -48,7 +49,7 @@ import { AddProjectComponent } from './components/projects/add-project/add-proje
 	ReactiveFormsModule,
 	HttpClientModule,
 	ToastrModule.forRoot(),
- 	NgbModule
+	ModalModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

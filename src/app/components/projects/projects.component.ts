@@ -2,8 +2,8 @@ import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit } from '@angular/core';
 import { GenericApiResponse, Project } from 'src/app/models';
 import { ApiService } from 'src/app/services/api.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddProjectComponent } from './add-project/add-project.component';
+import { BsModalService } from 'ngx-bootstrap/modal';
 
 
 @Component({
@@ -15,7 +15,7 @@ export class ProjectsComponent implements OnInit {
 	projects: Project[] = [];
 	
 	constructor(private apiService: ApiService,
-				private modalService: NgbModal,
+				private modalService: BsModalService,
 				private toaster: ToastrService) 
 	{ }
 
@@ -31,6 +31,10 @@ export class ProjectsComponent implements OnInit {
 	}
 
 	createProject(): void {
-		this.modalService.open(AddProjectComponent)
+		const modalRef = this.modalService.show(AddProjectComponent);
+		if (modalRef.content) modalRef.content.modalRef = modalRef;
+		
+
+		modalRef.onHide?.subscribe(resp => this.getProjects());
 	}
 }

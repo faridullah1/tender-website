@@ -12,7 +12,7 @@ import { VerifyEmailComponent } from './components/auth/verify-email/verify-emai
 import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
-	{ path: '', component: ProjectsComponent },
+	{ path: '', redirectTo: 'projects', pathMatch: 'full' },
 	{ path: 'tenders', component: TendersComponent },
 	{ path: 'projects', component: ProjectsComponent, data: { userTypes: ['Client'] }, canActivate: [AuthGuard] },
 	{ path: 'terms', component: TermsComponent },
