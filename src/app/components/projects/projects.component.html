@@ -21,6 +21,10 @@
 					<td>{{ project.type }}</td>
 					<td>{{ project.description }}</td>
 				</tr>
+
+				<tr *ngIf="projects.length === 0;">
+					<td colspan="4">No projects created yet.</td>
+				</tr>
 			</tbody>
 		</table>
 	</div>
