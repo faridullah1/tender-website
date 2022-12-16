@@ -9,11 +9,12 @@ import { TermsComponent } from './components/terms/terms.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { CreateAccountComponent } from './components/auth/create-account/create-account.component';
 import { VerifyEmailComponent } from './components/auth/verify-email/verify-email.component';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
-	{ path: '', redirectTo: 'login-type', pathMatch: 'full' },
+	{ path: '', component: ProjectsComponent },
 	{ path: 'tenders', component: TendersComponent },
-	{ path: 'projects', component: ProjectsComponent },
+	{ path: 'projects', component: ProjectsComponent, data: { userTypes: ['Client'] }, canActivate: [AuthGuard] },
 	{ path: 'terms', component: TermsComponent },
 	{ path: 'contact_us', component: ContactUsComponent },
 	{ path: 'login-type', component: LoginTypeSelectionComponent },

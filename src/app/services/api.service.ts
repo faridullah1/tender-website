@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { GenericApiResponse } from '../models';
@@ -10,15 +10,22 @@ import { GenericApiResponse } from '../models';
 })
 export class ApiService {
 	private baseUrl = '/api';
+	private _headers = new HttpHeaders();
 
-  	constructor(private http: HttpClient, private router: Router) { }
+  	constructor(private http: HttpClient, 
+				private router: Router) 
+	{
+		this.setHeaders();
+	}
 
 	get(slug: string): Observable<any> {
-		return this.http.get(this.baseUrl + slug).pipe(catchError(this.handleError));
+		return this.http.get(this.baseUrl + slug, { headers: this.headers })
+			.pipe(catchError((error) => this.handleError(error)));
 	}
 
 	post(slug: string, payload: any): Observable<any> {
-		return this.http.post<GenericApiResponse>(this.baseUrl + slug, payload).pipe(catchError((error) => this.handleError(error)));;
+		return this.http.post<GenericApiResponse>(this.baseUrl + slug, payload, { headers: this.headers })
+			.pipe(catchError((error) => this.handleError(error)));
 	}
 
 	private handleError(err: HttpErrorResponse) {
@@ -33,5 +40,15 @@ export class ApiService {
 		}
 
 		return throwError(() => new Error(errorMessage));
+	}
+
+	get headers(): HttpHeaders {
+		this.setHeaders();
+		return this._headers;
+	}
+
+	setHeaders(): any {
+		const token = localStorage.getItem('token');
+		this._headers = this._headers.set('authorization', 'Bearer ' + token);
 	}
 }

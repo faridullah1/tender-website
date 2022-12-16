@@ -40,11 +40,11 @@ export class LoginComponent {
 			next: (resp: GenericApiResponse) => {
 				const token = resp.access_token;
 				localStorage.setItem('token', token);
-				this.authService.setUserInfo()
-				this.router.navigateByUrl('/tenders');
+				this.authService.setUserInfo();
+				this.router.navigateByUrl('/projects');
 			},
 			error: (error: any) => {
-				this.disableLoginBtn = false,
+				this.disableLoginBtn = false;
 				this.toaster.error(error);
 			}
 		});

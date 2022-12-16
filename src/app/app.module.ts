@@ -23,6 +23,8 @@ import { TermsComponent } from './components/terms/terms.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { CreateAccountComponent } from './components/auth/create-account/create-account.component';
 import { VerifyEmailComponent } from './components/auth/verify-email/verify-email.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AddProjectComponent } from './components/projects/add-project/add-project.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,8 @@ import { VerifyEmailComponent } from './components/auth/verify-email/verify-emai
     TermsComponent,
     LoginComponent,
     CreateAccountComponent,
-    VerifyEmailComponent
+    VerifyEmailComponent,
+    AddProjectComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +47,8 @@ import { VerifyEmailComponent } from './components/auth/verify-email/verify-emai
     AppRoutingModule,
 	ReactiveFormsModule,
 	HttpClientModule,
-	ToastrModule.forRoot()
+	ToastrModule.forRoot(),
+ 	NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

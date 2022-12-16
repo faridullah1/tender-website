@@ -14,8 +14,18 @@ export interface LoginType {
 }
 
 export interface UserInfo {
-	id: number;
+	userId: number;
 	name: string;
 	email: string;
 	type: LoginAccountType;
+}
+
+export interface Project {
+	projectId: number;
+	name: string;
+	location: string;
+	description: string;
+	type: string;
+	image: string;
+	isApproved: boolean;
 }
