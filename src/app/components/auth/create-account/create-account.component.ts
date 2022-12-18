@@ -14,7 +14,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class CreateAccountComponent {
 	accountType: LoginAccountType = 'Client';
-	isMobileVerfied = false;
+	isMobileVerified = false;
 	verificationCode: number | null = null; 
 	theForm: FormGroup;
 	disableVerifyBtn = false;
@@ -69,11 +69,11 @@ export class CreateAccountComponent {
 	}
 
 	onVerify(code: string): void {
-		this.isMobileVerfied = this.verificationCode === parseInt(code) ? true: false;
+		this.isMobileVerified = this.verificationCode === parseInt(code) ? true: false;
 	}
 
 	onSubmit(): void {
-		if (!this.isMobileVerfied) return;
+		if (!this.isMobileVerified) return;
 
 		this.disableSubmitBtn = true;
 
@@ -87,7 +87,7 @@ export class CreateAccountComponent {
 
 				this.message = resp.message;
 				this.verificationCode = null;
-				this.isMobileVerfied = false;
+				this.isMobileVerified = false;
 				this.theForm.reset();
 			},
 			error: (errorMessage: string) => {
