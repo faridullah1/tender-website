@@ -8,18 +8,26 @@
 		<table class="table">
 			<thead>
 				<tr>
+					<th scope="col">Project Number</th>
 					<th scope="col">Name</th>
 					<th scope="col">Location</th>
 					<th scope="col">Type</th>
 					<th scope="col">Description</th>
+					<th scope="col">Status</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr *ngFor="let project of projects;">
+					<td>{{ project.projectId }}</td>
 					<td>{{ project.name }}</td>
 					<td>{{ project.location }}</td>
 					<td>{{ project.type }}</td>
 					<td>{{ project.description }}</td>
+					<td>
+						<span [ngClass]="project.isApproved ? 'approved' : 'pending'">
+							{{ project.isApproved ? 'Approved' : 'Not Approved' }}
+						</span>
+					</td>
 				</tr>
 
 				<tr *ngIf="projects.length === 0;">
