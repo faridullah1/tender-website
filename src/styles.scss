@@ -51,3 +51,11 @@ body {
 button, .btn {
 	font-size: 1.6rem !important;
 }
+
+.form-control {
+	font-size: 1.4rem;
+
+	&::placeholder {
+		font-size: 1.4rem;
+	}
+}

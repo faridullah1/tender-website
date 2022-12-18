@@ -1,6 +1,10 @@
 <div class="projects">
 	<div class="header">
-		<h2>Projects</h2>
+		<div class="flex">
+			<h2 class="mr-3">Projects</h2>
+			<input class="form-control" type="text" placeholder="Search Project by name" [formControl]="searchFC">
+		</div>
+
 		<button class="btn btn-primary" (click)="createProject();">Create Project</button>
 	</div>
 
