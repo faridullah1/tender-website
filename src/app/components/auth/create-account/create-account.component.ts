@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import Validation from 'src/app/common/validators';
@@ -12,7 +12,7 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './create-account.component.html',
   styleUrls: ['./create-account.component.scss']
 })
-export class CreateAccountComponent {
+export class CreateAccountComponent implements OnInit {
 	accountType: LoginAccountType = 'Client';
 	isMobileVerified = false;
 	verificationCode: number | null = null; 
@@ -29,12 +29,22 @@ export class CreateAccountComponent {
 		this.accountType = route.snapshot.params['type'] as LoginAccountType;
 
 		this.theForm = fb.group({
-			name: new FormControl('', [Validators.required]),
-			mobileNumber: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]),
-			email: new FormControl('', [Validators.required]),
-			password: new FormControl('', [Validators.required]),
-			confirmPassword: new FormControl('', [Validators.required])
+			name: ['', [Validators.required]],
+			mobileNumber: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
+			email: ['', [Validators.required]],
+			password: ['', [Validators.required]],
+			confirmPassword: ['', [Validators.required]]
 		}, { validators: [Validation.match('password', 'confirmPassword')]});
+	}
+
+	ngOnInit(): void {
+		if (this.accountType !== 'Client') {
+			this.theForm.addControl('companyName', new FormControl('', Validators.required));
+			this.theForm.addControl('commercialRegNumber', new FormControl('', Validators.required));
+			this.theForm.addControl('address', new FormControl('', Validators.required));
+			this.theForm.addControl('totalEmployees', new FormControl('', Validators.required));
+			this.theForm.addControl('documents', new FormControl(''));
+		}
 	}
 
 	numericOnly(ev: any): boolean
