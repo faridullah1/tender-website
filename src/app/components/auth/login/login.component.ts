@@ -37,16 +37,24 @@ export class LoginComponent {
 		payload.type = this.loginType;
 
 		this.authService.login(payload).subscribe({
-			next: (resp: GenericApiResponse) => {
-				const token = resp.access_token;
-				localStorage.setItem('token', token);
-				this.authService.setUserInfo();
-				this.router.navigateByUrl('/projects');
-			},
+			next: (resp: GenericApiResponse) => this.onLoginSuccess(resp),
 			error: (error: any) => {
 				this.disableLoginBtn = false;
 				this.toaster.error(error);
 			}
 		});
+	}
+
+	onLoginSuccess(resp: GenericApiResponse): void {
+		const token = resp.access_token;
+		localStorage.setItem('token', token);
+		this.authService.setUserInfo();
+
+		if (this.loginType === 'Client') {
+			this.router.navigateByUrl('/projects');
+		}
+		else {
+			this.router.navigateByUrl('/tenders');
+		}
 	}
 }
