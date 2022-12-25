@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { AuthGuard } from './guards/auth.guard';
+
 import { ContactUsComponent } from './components/contact-us/contact-us.component';
 import { LoginTypeSelectionComponent } from './components/auth/login-type-selection/type-selection.component';
 import { ProjectsComponent } from './components/projects/projects.component';
@@ -9,12 +11,15 @@ import { TermsComponent } from './components/terms/terms.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { CreateAccountComponent } from './components/auth/create-account/create-account.component';
 import { VerifyEmailComponent } from './components/auth/verify-email/verify-email.component';
-import { AuthGuard } from './guards/auth.guard';
+import { OurWorksComponent } from './components/our-works/our-works.component';
+import { HomeComponent } from './components/home/home.component';
 
 const routes: Routes = [
-	{ path: '', redirectTo: 'projects', pathMatch: 'full' },
+	{ path: '', component: HomeComponent },
+	{ path: 'home', component: HomeComponent },
 	{ path: 'tenders', component: TendersComponent },
 	{ path: 'projects', component: ProjectsComponent, data: { userTypes: ['Client'] }, canActivate: [AuthGuard] },
+	{ path: 'our_works', component: OurWorksComponent },
 	{ path: 'terms', component: TermsComponent },
 	{ path: 'contact_us', component: ContactUsComponent },
 	{ path: 'login-type', component: LoginTypeSelectionComponent },

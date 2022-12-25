@@ -10,6 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 // 3rd party modules
 import { ToastrModule } from 'ngx-toastr';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 // Components
 import { AppComponent } from './app.component';
@@ -24,7 +25,8 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { CreateAccountComponent } from './components/auth/create-account/create-account.component';
 import { VerifyEmailComponent } from './components/auth/verify-email/verify-email.component';
 import { AddProjectComponent } from './components/projects/add-project/add-project.component';
-import { ModalModule } from 'ngx-bootstrap/modal';
+import { OurWorksComponent } from './components/our-works/our-works.component';
+import { HomeComponent } from './components/home/home.component';
 
 
 @NgModule({
@@ -40,7 +42,9 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     LoginComponent,
     CreateAccountComponent,
     VerifyEmailComponent,
-    AddProjectComponent
+    AddProjectComponent,
+    OurWorksComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
