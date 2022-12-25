@@ -29,3 +29,16 @@ export interface Project {
 	image: string;
 	isApproved: boolean;
 }
+
+export interface Tender {
+	tenderId: number;
+	tenderNumber: string;
+	type: string;
+	openingDate: Date;
+	closingDate: Date;
+	minimumPrice: number;
+	maximumPrice: number;
+	location: string;
+	description: string;
+	projectId: number;
+}
