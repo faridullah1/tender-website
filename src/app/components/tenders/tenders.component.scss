@@ -19,4 +19,21 @@
 	.approved {
 		color: green;
 	}
+
+	table {
+		td {
+			vertical-align: middle;
+		}
+	}
+
+	.fg-primary {
+		color: var(--color-primary);
+		font-weight: 600;
+	}
+
+	.tender-number {
+		font-size: 3rem;
+		font-weight: 600;
+		color: var(--color-primary);
+	}
 }

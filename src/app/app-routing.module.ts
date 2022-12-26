@@ -17,7 +17,7 @@ import { HomeComponent } from './components/home/home.component';
 const routes: Routes = [
 	{ path: '', component: HomeComponent },
 	{ path: 'home', component: HomeComponent },
-	{ path: 'tenders', component: TendersComponent },
+	{ path: 'tenders', component: TendersComponent, canActivate: [AuthGuard] },
 	{ path: 'projects', component: ProjectsComponent, data: { userTypes: ['Client'] }, canActivate: [AuthGuard] },
 	{ path: 'our_works', component: OurWorksComponent },
 	{ path: 'terms', component: TermsComponent },
@@ -26,7 +26,6 @@ const routes: Routes = [
 	{ path: 'login/:type', component: LoginComponent },
 	{ path: 'create-account/:type', component: CreateAccountComponent },
 	{ path: 'confirm/:confirmationCode', component: VerifyEmailComponent },
-
 ];
 
 @NgModule({

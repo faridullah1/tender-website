@@ -14,14 +14,17 @@
 					<th scope="col">Type</th>
 					<th scope="col">Opening Date</th>
 					<th scope="col">Closing Date</th>
+					<th>Remaining time to close</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr *ngFor="let tender of tenders;">
-					<td>{{ tender.tenderNumber }}</td>
+					<td class="tender-number">{{ tender.tenderNumber }}</td>
 					<td>{{ tender.type }}</td>
 					<td>{{ tender.openingDate | date:'shortDate' }}</td>
 					<td>{{ tender.closingDate | date:'shortDate' }}</td>
+
+					<td class="fg-primary">{{ getRemainingTime(tender) }}</td>
 				</tr>
 
 				<tr *ngIf="tenders.length === 0;">
