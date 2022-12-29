@@ -1,3 +1,4 @@
+import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -13,6 +14,7 @@ export class ApiService {
 	private _headers = new HttpHeaders();
 
   	constructor(private http: HttpClient, 
+				private authService: AuthService,
 				private router: Router) 
 	{
 		this.setHeaders();
@@ -33,6 +35,7 @@ export class ApiService {
 
 		if (err.status === 401) {
 			this.router.navigateByUrl('/login-type');
+			this.authService.userInfo.next(null);
 		}
 
 		if (err.status === 504) {
