@@ -41,4 +41,6 @@ export interface Tender {
 	location: string;
 	description: string;
 	projectId: number;
+
+	remainingTime: string | 0;
 }

@@ -15,20 +15,24 @@
 					<th scope="col">Opening Date</th>
 					<th scope="col">Closing Date</th>
 					<th>Remaining time to close</th>
+					<th>Actions</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr *ngFor="let tender of tenders;">
 					<td class="tender-number">{{ tender.tenderNumber }}</td>
 					<td>{{ tender.type }}</td>
-					<td>{{ tender.openingDate | date:'shortDate' }}</td>
-					<td>{{ tender.closingDate | date:'shortDate' }}</td>
+					<td>{{ tender.openingDate | date:'dd MMM YYYY, hh:mm a' }}</td>
+					<td>{{ tender.closingDate | date:'dd MMM YYYY, hh:mm a' }}</td>
 
-					<td class="fg-primary">{{ getRemainingTime(tender) }}</td>
+					<td class="fg-primary">{{ tender.remainingTime === 0 ? 'Tender is closed' : tender.remainingTime }}</td>
+					<td>
+						<button *ngIf="tender.remainingTime != 0" class="btn btn-primary" (click)="onParticipate(tender)">Participate</button>
+					</td>
 				</tr>
 
 				<tr *ngIf="tenders.length === 0;">
-					<td colspan="4">No tenders added yet.</td>
+					<td colspan="5">No tenders added yet.</td>
 				</tr>
 			</tbody>
 		</table>
