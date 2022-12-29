@@ -41,7 +41,7 @@
 
 			<ng-template #loggedInUser>
 				<div class="flex align-items-center">
-					<div class="mr-3">{{ user?.name }}</div>
+					<div class="mr-3">{{ user?.name }} <span class="user-type">({{ user?.type }})</span></div>
 					<a role="button" (click)="onLogout()">Logout</a>
 				</div>
 			</ng-template>

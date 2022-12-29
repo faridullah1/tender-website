@@ -2,8 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { debounceTime, distinctUntilChanged, Subscription, timer } from 'rxjs';
-import { GenericApiResponse, Tender } from 'src/app/models';
+import { GenericApiResponse, Tender, UserInfo } from 'src/app/models';
 import { ApiService } from 'src/app/services/api.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 @Component({
@@ -14,12 +15,18 @@ import { ApiService } from 'src/app/services/api.service';
 export class TendersComponent implements OnInit, OnDestroy {
 	tenders: Tender[] = [];
 	searchFC = new FormControl();
+	user: UserInfo | null = null;
 
 	subscriptions: Subscription[] = [];
 
 	constructor(private apiService: ApiService,
+				private authService: AuthService,
 				private toaster: ToastrService) 
 	{
+		this.authService.userInfo.subscribe(userInfo => {
+			this.user = userInfo;
+		});
+
 		this.searchFC.valueChanges.pipe(debounceTime(400), distinctUntilChanged())
 			.subscribe(search => {
 				this.getTenders(search);

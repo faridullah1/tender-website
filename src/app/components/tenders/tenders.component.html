@@ -27,7 +27,10 @@
 
 					<td class="fg-primary">{{ tender.remainingTime === 0 ? 'Tender is closed' : tender.remainingTime }}</td>
 					<td>
-						<button *ngIf="tender.remainingTime != 0" class="btn btn-primary" (click)="onParticipate(tender)">Participate</button>
+						<button *ngIf="tender.remainingTime != 0 && 
+								(user && ['Consultant', 'Contractor', 'Supplier'].includes(user.type))" 
+							class="btn btn-primary" (click)="onParticipate(tender)">Participate
+						</button>
 					</td>
 				</tr>
 
