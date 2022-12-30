@@ -61,19 +61,27 @@ export class TendersComponent implements OnInit, OnDestroy {
 	setRemainingTime(tender: Tender, subs: Subscription) {
 		const currentTime = new Date().getTime();
 
+		// Case: If tender closing time passed away (Tender Finished)
 		if ((new Date(tender.closingDate).getTime() - currentTime) < 0) {
 			tender.remainingTime = 0;
 			subs.unsubscribe();
 			return;
 		}
 		
-		const diff = new Date(tender.closingDate).getTime() - currentTime;
-		const days = Math.floor(diff / (60 * 60 * 24 * 1000));
-		const hours = Math.floor(diff / (60 * 60 * 1000)) - (days * 24);
-		const minutes = Math.floor(diff / (60 * 1000)) - ((days * 24 * 60) + (hours * 60));
-		const seconds = Math.floor(diff / 1000) - ((days * 24 * 60 * 60) + (hours * 60 * 60) + (minutes * 60));
-
-		tender.remainingTime = `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
+		// Case: If Current time is in between Opening and Closing time of tender
+		if (new Date(tender.openingDate).getTime() < currentTime) {
+			const diff = new Date(tender.closingDate).getTime() - currentTime;
+			const days = Math.floor(diff / (60 * 60 * 24 * 1000));
+			const hours = Math.floor(diff / (60 * 60 * 1000)) - (days * 24);
+			const minutes = Math.floor(diff / (60 * 1000)) - ((days * 24 * 60) + (hours * 60));
+			const seconds = Math.floor(diff / 1000) - ((days * 24 * 60 * 60) + (hours * 60 * 60) + (minutes * 60));
+	
+			tender.remainingTime = `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
+		}
+		else {
+			// Case: If Opening time of tender is ahead of current time
+			tender.remainingTime = -1;
+		}
 	}
 
 	onParticipate(tender: Tender): void {

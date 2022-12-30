@@ -22,13 +22,24 @@
 				<tr *ngFor="let tender of tenders;">
 					<td class="tender-number">{{ tender.tenderNumber }}</td>
 					<td>{{ tender.type }}</td>
-					<td>{{ tender.openingDate | date:'dd MMM YYYY, hh:mm a' }}</td>
-					<td>{{ tender.closingDate | date:'dd MMM YYYY, hh:mm a' }}</td>
-
-					<td class="fg-primary">{{ tender.remainingTime === 0 ? 'Tender is closed' : tender.remainingTime }}</td>
 					<td>
-						<button *ngIf="tender.remainingTime != 0 && 
-								(user && ['Consultant', 'Contractor', 'Supplier'].includes(user.type))" 
+						<div>{{ tender.openingDate | date:'dd MMM YYYY' }}</div>
+						<div>{{ tender.openingDate | date:'hh:mm a' }}</div>
+					</td>
+					<td>
+						<div>{{ tender.closingDate | date:'dd MMM YYYY' }}</div>
+						<div>{{ tender.closingDate | date:'hh:mm a' }}</div>
+					</td>
+
+					<td class="fg-primary">
+						<span *ngIf="tender.remainingTime === 0">Tender is closed</span>
+						<span *ngIf="tender.remainingTime === -1">Tender is not started yet</span>
+						<span *ngIf="tender.remainingTime !== 0 && tender.remainingTime !== -1">{{ tender.remainingTime }}</span>
+					</td>
+					<td>
+						<button *ngIf="tender.remainingTime != 0 
+								&& tender.remainingTime != -1
+								&& (user && ['Consultant', 'Contractor', 'Supplier'].includes(user.type))" 
 							class="btn btn-primary" (click)="onParticipate(tender)">Participate
 						</button>
 					</td>

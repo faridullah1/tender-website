@@ -42,5 +42,7 @@ export interface Tender {
 	description: string;
 	projectId: number;
 
-	remainingTime: string | 0;
+	remainingTime: string | 0 | -1;		// remainingTime = '2 Days, 10 hours'
+										// remainingTime = 0 if tender is closed
+										// remainingTime = -1 if tender is not started yet.
 }
