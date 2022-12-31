@@ -14,10 +14,12 @@ export interface LoginType {
 }
 
 export interface UserInfo {
-	id: number;
+	userId: number;
 	name: string;
 	email: string;
+	mobileNumber: string;
 	type: LoginAccountType;
+	tenders: Bid[];
 }
 
 export interface Project {
@@ -45,4 +47,11 @@ export interface Tender {
 	remainingTime: string | 0 | -1;		// remainingTime = '2 Days, 10 hours'
 										// remainingTime = 0 if tender is closed
 										// remainingTime = -1 if tender is not started yet.
+	status: 'Open' | 'Under Evaluation';
+	submitting: boolean;
+}
+
+export interface Bid {
+	tenderId: number;
+	status: 'Qualified' | 'Not_Qualified' | null;
 }

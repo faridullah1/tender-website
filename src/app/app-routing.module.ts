@@ -13,11 +13,13 @@ import { CreateAccountComponent } from './components/auth/create-account/create-
 import { VerifyEmailComponent } from './components/auth/verify-email/verify-email.component';
 import { OurWorksComponent } from './components/our-works/our-works.component';
 import { HomeComponent } from './components/home/home.component';
+import { BiddingFormComponent } from './components/tenders/bidding-form/bidding-form.component';
 
 const routes: Routes = [
 	{ path: '', component: HomeComponent },
 	{ path: 'home', component: HomeComponent },
 	{ path: 'tenders', component: TendersComponent, canActivate: [AuthGuard] },
+	{ path: 'bidding', component: BiddingFormComponent, data: { userTypes: ['Consultant', 'Supplier', 'Contractor'] }, canActivate: [AuthGuard] },
 	{ path: 'projects', component: ProjectsComponent, data: { userTypes: ['Client'] }, canActivate: [AuthGuard] },
 	{ path: 'our_works', component: OurWorksComponent },
 	{ path: 'terms', component: TermsComponent },

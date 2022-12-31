@@ -33,11 +33,17 @@ export class AuthService {
 		return token !== null;
 	}
 
-	setUserInfo(): void {
-		const token = localStorage.getItem('token');
-		if (token) {
-			const decodedToken: UserInfo = jwtDecode(token);
-			this.userInfo.next(decodedToken);
+	setUserInfo(user: UserInfo | null = null): void {
+		if (user) {
+			this.userInfo.next(user);
+		}
+		else 
+		{
+			const token = localStorage.getItem('token');
+			if (token) {
+				const decodedToken: UserInfo = jwtDecode(token);
+				this.userInfo.next(decodedToken);
+			}
 		}
 	}
 

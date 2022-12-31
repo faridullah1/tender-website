@@ -24,6 +24,11 @@
 		td {
 			vertical-align: middle;
 		}
+
+		.action-cell {
+			width: 16rem;
+			min-width: 16rem
+		}
 	}
 
 	.fg-primary {
@@ -40,5 +45,16 @@
 	.btn-primary {
 		background-color: var(--color-primary);
 		border-color: var(--color-primary);
+	}
+
+	.message-panel {
+		background: #fff;
+		margin-bottom: 1rem;
+		padding: 2rem;
+		border-radius: 1rem;
+		text-align: center;
+		font-size: 2rem;
+		color: #0da40d;
+		font-weight: 600;
 	}
 }

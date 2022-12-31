@@ -27,6 +27,7 @@ import { VerifyEmailComponent } from './components/auth/verify-email/verify-emai
 import { AddProjectComponent } from './components/projects/add-project/add-project.component';
 import { OurWorksComponent } from './components/our-works/our-works.component';
 import { HomeComponent } from './components/home/home.component';
+import { BiddingFormComponent } from './components/tenders/bidding-form/bidding-form.component';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { HomeComponent } from './components/home/home.component';
     VerifyEmailComponent,
     AddProjectComponent,
     OurWorksComponent,
-    HomeComponent
+    HomeComponent,
+    BiddingFormComponent
   ],
   imports: [
     BrowserModule,

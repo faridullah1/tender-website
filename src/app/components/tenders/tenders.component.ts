@@ -1,5 +1,7 @@
+import { Router } from '@angular/router';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { debounceTime, distinctUntilChanged, Subscription, timer } from 'rxjs';
 import { GenericApiResponse, Tender, UserInfo } from 'src/app/models';
@@ -18,13 +20,20 @@ export class TendersComponent implements OnInit, OnDestroy {
 	user: UserInfo | null = null;
 
 	subscriptions: Subscription[] = [];
+	disableBtn = false;
+	message: string = '';
+	userBiddingTenders: number[] = []; 
 
 	constructor(private apiService: ApiService,
 				private authService: AuthService,
+				private router: Router,
 				private toaster: ToastrService) 
 	{
 		this.authService.userInfo.subscribe(userInfo => {
 			this.user = userInfo;
+			if (this.user && this.user.tenders) {
+				this.userBiddingTenders = this.user.tenders.map(bid => bid.tenderId) || [];
+			}
 		});
 
 		this.searchFC.valueChanges.pipe(debounceTime(400), distinctUntilChanged())
@@ -48,7 +57,8 @@ export class TendersComponent implements OnInit, OnDestroy {
 			next: (resp: GenericApiResponse) => {
 				this.tenders = resp.data.tenders;
 
-				for (let tender of this.tenders) {
+				for (let tender of this.tenders) 
+				{
 					const t = timer(0, 1000);
 					const subs = t.subscribe(() => this.setRemainingTime(tender, subs));
 					this.subscriptions.push(subs);
@@ -85,6 +95,33 @@ export class TendersComponent implements OnInit, OnDestroy {
 	}
 
 	onParticipate(tender: Tender): void {
-		console.log('Participating in tender =', tender);
+		const currentTime = new Date().getTime();
+		const lastTenMinutes = moment(tender.closingDate).subtract(10, 'minutes');
+
+		if (moment(lastTenMinutes).isSameOrAfter(currentTime)) 
+		{
+			for (let t of this.tenders) t.submitting = false;
+			tender.submitting = true;
+
+			const payload = {
+				tenderId: tender.tenderId,
+				userId: this.user?.userId
+			};
+
+			this.apiService.post('/bids', payload).subscribe({
+				next: () => {
+					tender.submitting = false;
+					this.message = 'Thank you, your request has been submitted. You will notified by email when bidding time arrives.'
+					this.getTenders();
+				},
+				error: (error) => {
+					this.toaster.error(error);
+					tender.submitting = false;
+				}
+			});
+		}
+		else {
+			this.router.navigate(['/bidding', {tenderId: tender.tenderId}]);
+		}
 	}
 }

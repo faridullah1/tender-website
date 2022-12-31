@@ -33,7 +33,7 @@ export class AddProjectComponent {
 
 	onSubmit(): void {
 		const payload = this.theForm.value;
-		payload.clientId = this.authService.userInfo.value?.id;
+		payload.clientId = this.authService.userInfo.value?.userId;
 
 		this.apiService.post('/projects', payload).subscribe(
 		{
