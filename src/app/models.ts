@@ -19,7 +19,7 @@ export interface UserInfo {
 	email: string;
 	mobileNumber: string;
 	type: LoginAccountType;
-	tenders: Bid[];
+	bids: Bid[];
 }
 
 export interface Project {
@@ -44,14 +44,17 @@ export interface Tender {
 	description: string;
 	projectId: number;
 
-	remainingTime: string | 0 | -1;		// remainingTime = '2 Days, 10 hours'
-										// remainingTime = 0 if tender is closed
-										// remainingTime = -1 if tender is not started yet.
+	remainingTime: string | 0 | -1;			// remainingTime = '2 Days, 10 hours'
+											// remainingTime = 0 if tender is closed
+											// remainingTime = -1 if tender is not started yet.
 	status: 'Open' | 'Under Evaluation';
 	submitting: boolean;
+	canBid: boolean;
+	bid: Bid
 }
 
 export interface Bid {
+	biddingId: number;
 	tenderId: number;
 	status: 'Qualified' | 'Not_Qualified' | null;
 }

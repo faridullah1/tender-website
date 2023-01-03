@@ -30,6 +30,11 @@ export class ApiService {
 			.pipe(catchError((error) => this.handleError(error)));
 	}
 
+	patch(slug: string, payload: any): Observable<any> {
+		return this.http.patch<GenericApiResponse>(this.baseUrl + slug, payload, { headers: this.headers })
+			.pipe(catchError((error) => this.handleError(error)));
+	}
+
 	private handleError(err: HttpErrorResponse) {
 		let errorMessage = err.error.message || err.message;
 

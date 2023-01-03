@@ -13,6 +13,7 @@ import { Component } from '@angular/core';
 })
 export class BiddingFormComponent {
 	theForm: FormGroup;
+	biddingId!: number;
 	tenderId!: number;
 	message: string = '';
 	disableSubmitBtn = false;
@@ -30,24 +31,40 @@ export class BiddingFormComponent {
 			priceInNumbers: ['', [Validators.required]],
 		});
 
+		this.biddingId = +route.snapshot.params['biddingId'];
 		this.tenderId = +route.snapshot.params['tenderId'];
 	}
 
 	onPlaceBid(): void {
 		this.disableSubmitBtn = true;
 		const payload = this.theForm.value;
-		payload.tenderId = this.tenderId;
-		payload.userId = this.authService.userInfo.value?.userId;
 
-		this.apiService.post('/bids', payload).subscribe({
-			next: () => {
-				this.disableSubmitBtn = false;
-				this.message = 'Thank you, your bid has been submitted.'
-			},
-			error: (error) => {
-				this.disableSubmitBtn = false;
-				this.toaster.error(error);
-			}
-		});
+		if (this.biddingId) {
+			this.apiService.patch(`/bids/${this.biddingId}`, payload).subscribe({
+				next: () => {
+					this.disableSubmitBtn = false;
+					this.message = 'Thank you, your bid has been submitted.';
+				},
+				error: (error) => {
+					this.disableSubmitBtn = false;
+					this.toaster.error(error);
+				}
+			});
+		}
+		else {
+			payload.tenderId = this.tenderId;
+			payload.userId = this.authService.userInfo.value?.userId;
+			
+			this.apiService.post('/bids', payload).subscribe({
+				next: () => {
+					this.disableSubmitBtn = false;
+					this.message = 'Thank you, your bid has been submitted.';
+				},
+				error: (error) => {
+					this.disableSubmitBtn = false;
+					this.toaster.error(error);
+				}
+			});
+		}
 	}
 }

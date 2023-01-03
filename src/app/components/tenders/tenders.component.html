@@ -15,16 +15,18 @@
 			<thead>
 				<tr>
 					<th scope="col">Tender Number</th>
+					<th scope="col">Tender Id</th>
 					<th scope="col">Type</th>
 					<th scope="col">Opening Date</th>
 					<th scope="col">Closing Date</th>
 					<th>Remaining time to close</th>
-					<th>Actions</th>
+					<th class="action-cell">Actions</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr *ngFor="let tender of tenders;">
 					<td class="tender-number">{{ tender.tenderNumber }}</td>
+					<td>{{ tender.tenderId }}</td>
 					<td>{{ tender.type }}</td>
 					<td>
 						<div>{{ tender.openingDate | date:'dd MMM YYYY' }}</div>
@@ -49,10 +51,9 @@
 						4. User is logged in and user type is only "Consultant" or "Contractor" or "Supplier"
 					-->
 					<td class="action-cell">
-						<button  *ngIf="
-									!userBiddingTenders.includes(tender.tenderId)
-									&& tender.remainingTime != 0 
+						<button  *ngIf="tender.remainingTime != 0 
 									&& tender.remainingTime != -1
+									&& !tender.bid
 									&& (user && ['Consultant', 'Contractor', 'Supplier'].includes(user.type))"
 							class="btn btn-primary" (click)="onParticipate(tender)" [disabled]="tender.submitting">
 							<span *ngIf="!tender.submitting">Participate</span>
@@ -61,6 +62,17 @@
 								<span class="sr-only ml-3">submutting...</span>
 							</div>
 						</button>
+
+						<button  *ngIf="
+									(tender.bid && tender.bid.status == null)
+									&& tender.canBid
+									&& tender.remainingTime != 0
+									&& (user && ['Consultant', 'Contractor', 'Supplier'].includes(user.type))"
+							class="btn btn-primary" (click)="onParticipate(tender)">
+							Place Bid
+						</button>
+
+						<button class="btn btn-secondary" *ngIf="tender.remainingTime == 0" (click)="onViewPricing(tender)">View Pricing</button>
 					</td>
 				</tr>
 

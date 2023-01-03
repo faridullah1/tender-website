@@ -28,6 +28,7 @@ import { AddProjectComponent } from './components/projects/add-project/add-proje
 import { OurWorksComponent } from './components/our-works/our-works.component';
 import { HomeComponent } from './components/home/home.component';
 import { BiddingFormComponent } from './components/tenders/bidding-form/bidding-form.component';
+import { PricingComponent } from './components/tenders/pricing/pricing.component';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import { BiddingFormComponent } from './components/tenders/bidding-form/bidding-
     AddProjectComponent,
     OurWorksComponent,
     HomeComponent,
-    BiddingFormComponent
+    BiddingFormComponent,
+    PricingComponent
   ],
   imports: [
     BrowserModule,

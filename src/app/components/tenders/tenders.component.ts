@@ -4,6 +4,7 @@ import { FormControl } from '@angular/forms';
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { debounceTime, distinctUntilChanged, Subscription, timer } from 'rxjs';
+
 import { GenericApiResponse, Tender, UserInfo } from 'src/app/models';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -16,26 +17,18 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class TendersComponent implements OnInit, OnDestroy {
 	tenders: Tender[] = [];
-	searchFC = new FormControl();
 	user: UserInfo | null = null;
 
 	subscriptions: Subscription[] = [];
 	disableBtn = false;
+	searchFC = new FormControl();
 	message: string = '';
-	userBiddingTenders: number[] = []; 
 
 	constructor(private apiService: ApiService,
 				private authService: AuthService,
 				private router: Router,
 				private toaster: ToastrService) 
 	{
-		this.authService.userInfo.subscribe(userInfo => {
-			this.user = userInfo;
-			if (this.user && this.user.tenders) {
-				this.userBiddingTenders = this.user.tenders.map(bid => bid.tenderId) || [];
-			}
-		});
-
 		this.searchFC.valueChanges.pipe(debounceTime(400), distinctUntilChanged())
 			.subscribe(search => {
 				this.getTenders(search);
@@ -43,11 +36,22 @@ export class TendersComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnInit(): void {
-		this.getTenders();
+		// Get user details so that we get user bidding details that been already done.
+		this.getUserDetails();
 	}
 
 	ngOnDestroy(): void {
 		this.subscriptions.forEach(subs => subs.unsubscribe());
+	}
+
+	getUserDetails(): void {
+		this.apiService.get('/users/me').subscribe({
+			next: (resp: GenericApiResponse) => {
+				this.user = resp.data.user;
+				this.getTenders();
+			},
+			error: (error: any) => this.toaster.error(error)
+		});
 	}
 
 	getTenders(search: string | null = null): void {
@@ -59,6 +63,11 @@ export class TendersComponent implements OnInit, OnDestroy {
 
 				for (let tender of this.tenders) 
 				{
+					const tenderForBidding = this.user?.bids.find(bid => bid.tenderId === tender.tenderId);
+					if (tenderForBidding) {
+						tender.bid = tenderForBidding;
+					}
+
 					const t = timer(0, 1000);
 					const subs = t.subscribe(() => this.setRemainingTime(tender, subs));
 					this.subscriptions.push(subs);
@@ -78,8 +87,16 @@ export class TendersComponent implements OnInit, OnDestroy {
 			return;
 		}
 		
+		const lastTenMinutes = moment(tender.closingDate).subtract(10, 'minutes');
+
 		// Case: If Current time is in between Opening and Closing time of tender
 		if (new Date(tender.openingDate).getTime() < currentTime) {
+			// Check if tender is in last 10 minutes
+			if (!moment(lastTenMinutes).isSameOrAfter(currentTime)) 
+			{
+				tender.canBid = true;
+			}
+
 			const diff = new Date(tender.closingDate).getTime() - currentTime;
 			const days = Math.floor(diff / (60 * 60 * 24 * 1000));
 			const hours = Math.floor(diff / (60 * 60 * 1000)) - (days * 24);
@@ -109,10 +126,10 @@ export class TendersComponent implements OnInit, OnDestroy {
 			};
 
 			this.apiService.post('/bids', payload).subscribe({
-				next: () => {
+				next: (resp: GenericApiResponse) => {
 					tender.submitting = false;
 					this.message = 'Thank you, your request has been submitted. You will notified by email when bidding time arrives.'
-					this.getTenders();
+					tender.bid = resp.data.bid;
 				},
 				error: (error) => {
 					this.toaster.error(error);
@@ -121,7 +138,13 @@ export class TendersComponent implements OnInit, OnDestroy {
 			});
 		}
 		else {
-			this.router.navigate(['/bidding', {tenderId: tender.tenderId}]);
+			const tenderId = tender.tenderId;
+			const biddingId = tender?.bid?.biddingId;
+			this.router.navigate(['/bidding', { tenderId, biddingId }]);
 		}
+	}
+
+	onViewPricing(tender: Tender): void {
+		this.router.navigateByUrl(`pricing/${tender.tenderId}`);
 	}
 }
