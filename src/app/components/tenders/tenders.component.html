@@ -72,7 +72,7 @@
 							Place Bid
 						</button>
 
-						<button class="btn btn-secondary" *ngIf="tender.remainingTime == 0" (click)="onViewPricing(tender)">View Pricing</button>
+						<button class="btn btn-secondary" *ngIf="tender.remainingTime === 0 && tender.bid.status" (click)="onViewPricing(tender)">View Pricing</button>
 					</td>
 				</tr>
 
