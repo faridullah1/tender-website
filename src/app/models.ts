@@ -56,5 +56,8 @@ export interface Tender {
 export interface Bid {
 	biddingId: number;
 	tenderId: number;
+	user: UserInfo;
+	durationInNumbers: number;
+	priceInNumbers: number;
 	status: 'Qualified' | 'Not_Qualified' | null;
 }

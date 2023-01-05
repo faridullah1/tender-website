@@ -27,7 +27,7 @@ const routes: Routes = [
 		canActivate: [AuthGuard] 
 	},
 	{ 
-		path: 'pricing/:id', 
+		path: 'pricing/:tenderId', 
 		component: PricingComponent, 
 		data: { userTypes: ['Consultant', 'Supplier', 'Contractor'] }, 
 		canActivate: [AuthGuard] 

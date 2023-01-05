@@ -1,0 +1,28 @@
+<div class="bids">
+	<div class="header">
+		<div class="flex">
+			<h2 class="mr-3">Bids prices for Tender Id = {{tenderId}}</h2>
+		</div>
+	</div>
+
+	<div class="content">
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">User</th>
+					<th scope="col">Duration</th>
+					<th scope="col">Price</th>
+					<th scope="col">Status</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let bid of bids;">
+					<td>{{ bid.user.name }}</td>
+					<td>{{ bid.durationInNumbers }}</td>
+					<td>{{ bid.priceInNumbers }}</td>
+					<td [class]="bid.status?.toLowerCase()">{{ bid.status }}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
