@@ -38,11 +38,10 @@ export interface Tender {
 	type: string;
 	openingDate: Date;
 	closingDate: Date;
-	minimumPrice: number;
-	maximumPrice: number;
 	location: string;
 	description: string;
 	projectId: number;
+	documents: any;
 
 	remainingTime: string | 0 | -1;			// remainingTime = '2 Days, 10 hours'
 											// remainingTime = 0 if tender is closed
