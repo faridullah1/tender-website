@@ -20,6 +20,7 @@ export interface UserInfo {
 	mobileNumber: string;
 	type: LoginAccountType;
 	bids: Bid[];
+	company: UserCompany;
 }
 
 export interface Project {
@@ -59,4 +60,12 @@ export interface Bid {
 	durationInNumbers: number;
 	priceInNumbers: number;
 	status: 'Qualified' | 'Not_Qualified' | null;
+}
+
+export interface UserCompany {
+	companyId: number;
+	name: string;
+	commercialRegNumber: string;
+	address: string;
+	totalEmployees: number;
 }

@@ -7,7 +7,6 @@ import { debounceTime, distinctUntilChanged, Subscription, timer } from 'rxjs';
 
 import { GenericApiResponse, Tender, UserInfo } from 'src/app/models';
 import { ApiService } from 'src/app/services/api.service';
-import { AuthService } from 'src/app/services/auth.service';
 
 
 @Component({
@@ -25,7 +24,6 @@ export class TendersComponent implements OnInit, OnDestroy {
 	message: string = '';
 
 	constructor(private apiService: ApiService,
-				private authService: AuthService,
 				private router: Router,
 				private toaster: ToastrService) 
 	{

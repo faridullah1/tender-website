@@ -9,7 +9,7 @@
 		<table class="table">
 			<thead>
 				<tr>
-					<th scope="col">User</th>
+					<th scope="col">Company</th>
 					<th scope="col">Duration</th>
 					<th scope="col">Price</th>
 					<th scope="col">Status</th>
@@ -17,7 +17,7 @@
 			</thead>
 			<tbody>
 				<tr *ngFor="let bid of bids;">
-					<td>{{ bid.user.name }}</td>
+					<td>{{ bid.user.company.name }}</td>
 					<td>{{ bid.durationInNumbers }}</td>
 					<td>{{ bid.priceInNumbers }}</td>
 					<td [class]="bid.status?.toLowerCase()">{{ bid.status }}</td>

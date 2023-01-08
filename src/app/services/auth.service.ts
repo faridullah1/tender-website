@@ -4,13 +4,14 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, Observable, throwError } from 'rxjs';
 import { UserInfo } from '../models';
 import jwtDecode from 'jwt-decode';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-	private baseUrl = '/api';
+	private baseUrl = environment.apiUrl;
 	userInfo = new BehaviorSubject<UserInfo | null>(null);
 
   	constructor(private http: HttpClient, 

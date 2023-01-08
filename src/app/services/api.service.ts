@@ -4,13 +4,14 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { GenericApiResponse } from '../models';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-	private baseUrl = '/api';
+	private baseUrl = environment.apiUrl;
 	private _headers = new HttpHeaders();
 
   	constructor(private http: HttpClient, 
