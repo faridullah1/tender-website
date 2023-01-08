@@ -34,12 +34,6 @@
 						<div>{{ tender.closingDate | date:'hh:mm a' }}</div>
 					</td>
 
-					<td>
-						<a *ngIf="tender.documents && tender.remainingTime !== 0" 
-							[href]="tender.documents" download>download
-						</a>
-					</td>
-
 					<td class="fg-primary">
 						<span *ngIf="tender.remainingTime === 0">Tender is closed</span>
 						<span *ngIf="tender.remainingTime === -1">Tender is not started yet</span>

@@ -25,24 +25,10 @@
 			</div>
 
 			<div class="col">
-				<div class="label">Description</div>
-				<div>{{ tender.description }}</div>
-			</div>
-
-			<div class="col">
-				<div class="label">Documents</div>
-				<a *ngIf="tender.documents" 
-					[href]="tender.documents" download>download
-				</a>
-			</div>
-
-			<div class="col">
 				<div class="label">No. of participants</div>
 				<div>{{ tender.noOfParticipants }}</div>
 			</div>
-		</div>
 
-		<div class="flex" *ngIf="tender">
 			<div class="col">
 				<div class="label">Opening Date</div>
 				<div>
@@ -66,6 +52,20 @@
 					<span *ngIf="tender?.remainingTime === -1">Tender is not started yet</span>
 					<span *ngIf="tender?.remainingTime !== 0 && tender.remainingTime !== -1">{{ tender.remainingTime }}</span>
 				</div>
+			</div>
+		</div>
+
+		<div class="flex" *ngIf="tender">
+			<div class="col">
+				<div class="label">Description</div>
+				<div>{{ tender.description }}</div>
+			</div>
+
+			<div class="col">
+				<div class="label">Documents</div>
+				<a *ngIf="tender.documents" 
+					[href]="tender.documents" download>download
+				</a>
 			</div>
 		</div>
 
