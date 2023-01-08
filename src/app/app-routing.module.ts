@@ -7,6 +7,7 @@ import { ContactUsComponent } from './components/contact-us/contact-us.component
 import { LoginTypeSelectionComponent } from './components/auth/login-type-selection/type-selection.component';
 import { ProjectsComponent } from './components/projects/projects.component';
 import { TendersComponent } from './components/tenders/tenders.component';
+import { TenderDetailComponent } from './components/tenders/tender-detail/tender-detail.component';
 import { TermsComponent } from './components/terms/terms.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { CreateAccountComponent } from './components/auth/create-account/create-account.component';
@@ -29,6 +30,12 @@ const routes: Routes = [
 	{ 
 		path: 'pricing/:tenderId', 
 		component: PricingComponent, 
+		data: { userTypes: ['Consultant', 'Supplier', 'Contractor'] }, 
+		canActivate: [AuthGuard] 
+	},
+	{ 
+		path: 'detail/:tenderId', 
+		component: TenderDetailComponent, 
 		data: { userTypes: ['Consultant', 'Supplier', 'Contractor'] }, 
 		canActivate: [AuthGuard] 
 	},

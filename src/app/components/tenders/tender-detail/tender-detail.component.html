@@ -1,0 +1,97 @@
+<div class="details-container">
+	<div class="box">Tender Details</div>
+
+	<div class="message-panel" *ngIf="message">
+		{{ message }}
+	</div>
+	
+	<div class="details">
+		<h1 class="title">Tender Details</h1>
+
+		<div class="flex mb-5" *ngIf="tender">
+			<div class="col">
+				<div class="label">Tender Number</div>
+				<div>{{ tender.tenderNumber }}</div>
+			</div>
+
+			<div class="col">
+				<div class="label">Tender Type</div>
+				<div>{{ tender.type }}</div>
+			</div>
+
+			<div class="col">
+				<div class="label">Tender Location</div>
+				<div>{{ tender.location }}</div>
+			</div>
+
+			<div class="col">
+				<div class="label">Description</div>
+				<div>{{ tender.description }}</div>
+			</div>
+
+			<div class="col">
+				<div class="label">Documents</div>
+				<a *ngIf="tender.documents" 
+					[href]="tender.documents" download>download
+				</a>
+			</div>
+
+			<div class="col">
+				<div class="label">No. of participants</div>
+				<div>{{ tender.noOfParticipants }}</div>
+			</div>
+		</div>
+
+		<div class="flex" *ngIf="tender">
+			<div class="col">
+				<div class="label">Opening Date</div>
+				<div>
+					<div>{{ tender.openingDate | date: 'dd-MMM-YYYY' }}</div>
+					<div>{{ tender.openingDate | date: 'hh:mm a' }}</div>
+				</div>
+			</div>
+
+			<div class="col">
+				<div class="label">Closing Date</div>
+				<div>
+					<div>{{ tender.closingDate | date: 'dd-MMM-YYYY' }}</div>
+					<div>{{ tender.closingDate | date: 'hh:mm a' }}</div>
+				</div>
+			</div>
+
+			<div class="col">
+				<div class="label">Time remaining</div>
+				<div class="flex flex-col fg-primary">
+					<span *ngIf="tender?.remainingTime === 0">Tender is closed</span>
+					<span *ngIf="tender?.remainingTime === -1">Tender is not started yet</span>
+					<span *ngIf="tender?.remainingTime !== 0 && tender.remainingTime !== -1">{{ tender.remainingTime }}</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="actions">
+			<button  *ngIf="tender?.remainingTime != 0 
+						&& tender?.remainingTime != -1
+						&& !tender?.bid
+						&& (user && ['Consultant', 'Contractor', 'Supplier'].includes(user.type))"
+				class="btn btn-primary mr-3" (click)="onParticipate(tender)" [disabled]="disableBtn">
+				<span *ngIf="!disableBtn">Participate</span>
+				<div class="flex" *ngIf="disableBtn">
+					<span class="spinner-border"></span>
+					<span class="sr-only ml-3">submutting...</span>
+				</div>
+			</button>
+
+			<button  *ngIf="
+						(tender?.bid && tender.bid?.status == null)
+						&& tender?.canBid
+						&& tender?.remainingTime != 0
+						&& (user && ['Consultant', 'Contractor', 'Supplier'].includes(user.type))"
+				class="btn btn-primary mr-3" (click)="onParticipate(tender)">
+				Place Bid
+			</button>
+
+			<button class="btn btn-primary" routerLink="/tenders">Back</button>
+		</div>
+	</div>
+</div>

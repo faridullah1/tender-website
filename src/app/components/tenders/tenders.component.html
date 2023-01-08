@@ -1,8 +1,4 @@
 <div class="tenders">
-	<div class="message-panel" *ngIf="message">
-		{{ message }}
-	</div>
-
 	<div class="header">
 		<div class="flex">
 			<h2 class="mr-3">Tenders</h2>
@@ -50,33 +46,9 @@
 						<span *ngIf="tender.remainingTime !== 0 && tender.remainingTime !== -1">{{ tender.remainingTime }}</span>
 					</td>
 
-					<!-- 
-						Participate Button will be visible for the following cases
-						1. User has not participated in the bidding.
-						2. Tender is not closed.
-						3. Tender opening time is not in the future
-						4. User is logged in and user type is only "Consultant" or "Contractor" or "Supplier"
-					-->
 					<td class="action-cell">
-						<button  *ngIf="tender.remainingTime != 0 
-									&& tender.remainingTime != -1
-									&& !tender.bid
-									&& (user && ['Consultant', 'Contractor', 'Supplier'].includes(user.type))"
-							class="btn btn-primary" (click)="onParticipate(tender)" [disabled]="tender.submitting">
-							<span *ngIf="!tender.submitting">Participate</span>
-							<div class="flex" *ngIf="tender.submitting">
-								<span class="spinner-border"></span>
-								<span class="sr-only ml-3">submutting...</span>
-							</div>
-						</button>
-
-						<button  *ngIf="
-									(tender.bid && tender.bid.status == null)
-									&& tender.canBid
-									&& tender.remainingTime != 0
-									&& (user && ['Consultant', 'Contractor', 'Supplier'].includes(user.type))"
-							class="btn btn-primary" (click)="onParticipate(tender)">
-							Place Bid
+						<button class="btn btn-enter-tender mr-3" 
+							(click)="onViewTenderDetails(tender)">Enter Tender
 						</button>
 
 						<button class="btn btn-secondary" *ngIf="tender.remainingTime === 0 && tender.bid?.status" 

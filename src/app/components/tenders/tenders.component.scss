@@ -12,22 +12,14 @@
 		padding: 2rem;
 	}
 
-	.pending {
-		color: red;
-	}
-
-	.approved {
-		color: green;
-	}
-
 	table {
 		td {
 			vertical-align: middle;
 		}
 
 		.action-cell {
-			width: 16rem;
-			min-width: 16rem
+			width: 24rem;
+			min-width: 24rem
 		}
 	}
 
@@ -42,25 +34,14 @@
 		color: var(--color-primary);
 	}
 
-	.btn-primary {
-		background-color: var(--color-primary);
-		border-color: var(--color-primary);
-	}
-
 	.btn-secondary {
 		background-color: #999;
 		border-color: #999;
 		font-size: 1.4rem !important;
 	}
 
-	.message-panel {
-		background: #fff;
-		margin-bottom: 1rem;
-		padding: 2rem;
-		border-radius: 1rem;
-		text-align: center;
-		font-size: 2rem;
-		color: #0da40d;
-		font-weight: 600;
+	.btn-enter-tender {
+		background-color: #e4ba00;
+		color: #fff;
 	}
 }
