@@ -5,10 +5,10 @@ const app = express();
 
 app.use(express.json());
 app.use(compression());
-app.use(express.static(__dirname + '/dist/academy_website'));
+app.use(express.static(__dirname + '/dist/wissal'));
 
 app.get('/*', (req, res) => {    
-	res.sendFile(path.join(__dirname+'/dist/academy_website/index.html'));
+	res.sendFile(path.join(__dirname+'/dist/wissal/index.html'));
 });
 
 const port = process.env.PORT || 3000;
