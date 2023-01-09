@@ -11,7 +11,6 @@
 			<thead>
 				<tr>
 					<th>Tender Number</th>
-					<th>Tender Id</th>
 					<th>Type</th>
 					<th>Opening Date</th>
 					<th>Closing Date</th>
@@ -22,7 +21,6 @@
 			<tbody>
 				<tr *ngFor="let tender of tenders;">
 					<td class="tender-number">{{ tender.tenderNumber }}</td>
-					<td>{{ tender.tenderId }}</td>
 					<td>{{ tender.type }}</td>
 					<td>
 						<div>{{ tender.openingDate | date:'dd MMM YYYY' }}</div>
@@ -33,7 +31,7 @@
 						<div>{{ tender.closingDate | date:'hh:mm a' }}</div>
 					</td>
 
-					<td class="fg-primary">
+					<td class="timer-cell fg-primary">
 						<span *ngIf="tender.remainingTime === 0">Tender is closed</span>
 						<span *ngIf="tender.remainingTime === -1">Tender is not started yet</span>
 						<span *ngIf="tender.remainingTime !== 0 && tender.remainingTime !== -1">{{ tender.remainingTime }}</span>

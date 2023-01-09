@@ -110,7 +110,7 @@ export class TenderDetailComponent implements OnInit {
 			this.apiService.post('/bids', payload).subscribe({
 				next: (resp: GenericApiResponse) => {
 					this.disableBtn = false;
-					this.message = 'Thank you, your request has been submitted. You will notified by email when bidding time arrives.'
+					this.message = 'Thank you, your request has been submitted. You will be notified by email when bidding time arrives.'
 					tender.bid = resp.data.bid;
 				},
 				error: (error) => {

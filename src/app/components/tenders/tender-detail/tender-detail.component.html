@@ -69,10 +69,10 @@
 			</div>
 		</div>
 
-		<div class="actions">
-			<button  *ngIf="tender?.remainingTime != 0 
-						&& tender?.remainingTime != -1
-						&& !tender?.bid
+		<div class="actions" *ngIf="tender">
+			<button  *ngIf="tender.remainingTime != 0 
+						&& tender.remainingTime != -1
+						&& !tender.bid
 						&& (user && ['Consultant', 'Contractor', 'Supplier'].includes(user.type))"
 				class="btn btn-primary mr-3" (click)="onParticipate(tender)" [disabled]="disableBtn">
 				<span *ngIf="!disableBtn">Participate</span>
@@ -83,9 +83,9 @@
 			</button>
 
 			<button  *ngIf="
-						(tender?.bid && tender.bid?.status == null)
-						&& tender?.canBid
-						&& tender?.remainingTime != 0
+						(tender.bid && tender.bid?.status == null)
+						&& tender.canBid
+						&& tender.remainingTime != 0
 						&& (user && ['Consultant', 'Contractor', 'Supplier'].includes(user.type))"
 				class="btn btn-primary mr-3" (click)="onParticipate(tender)">
 				Place Bid
