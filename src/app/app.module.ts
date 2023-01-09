@@ -30,6 +30,7 @@ import { HomeComponent } from './components/home/home.component';
 import { BiddingFormComponent } from './components/tenders/bidding-form/bidding-form.component';
 import { PricingComponent } from './components/tenders/pricing/pricing.component';
 import { TenderDetailComponent } from './components/tenders/tender-detail/tender-detail.component';
+import { NotificationsComponent } from './components/notifications/notifications.component';
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import { TenderDetailComponent } from './components/tenders/tender-detail/tender
     HomeComponent,
     BiddingFormComponent,
     PricingComponent,
-    TenderDetailComponent
+    TenderDetailComponent,
+    NotificationsComponent
   ],
   imports: [
     BrowserModule,

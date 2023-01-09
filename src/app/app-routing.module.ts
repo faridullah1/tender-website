@@ -16,6 +16,7 @@ import { OurWorksComponent } from './components/our-works/our-works.component';
 import { HomeComponent } from './components/home/home.component';
 import { BiddingFormComponent } from './components/tenders/bidding-form/bidding-form.component';
 import { PricingComponent } from './components/tenders/pricing/pricing.component';
+import { NotificationsComponent } from './components/notifications/notifications.component';
 
 const routes: Routes = [
 	{ path: '', component: HomeComponent },
@@ -39,6 +40,7 @@ const routes: Routes = [
 		data: { userTypes: ['Consultant', 'Supplier', 'Contractor'] }, 
 		canActivate: [AuthGuard] 
 	},
+	{ path: 'notifications', component: NotificationsComponent, canActivate: [AuthGuard] },
 	{ path: 'projects', component: ProjectsComponent, data: { userTypes: ['Client'] }, canActivate: [AuthGuard] },
 	{ path: 'our_works', component: OurWorksComponent },
 	{ path: 'terms', component: TermsComponent },

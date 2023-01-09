@@ -70,3 +70,11 @@ export interface UserCompany {
 	address: string;
 	totalEmployees: number;
 }
+
+export interface UserNotification {
+	notificationId: number;
+	userId: number;
+	type: 'email' | 'sms';
+	content: string;
+	createdAt: Date
+}
