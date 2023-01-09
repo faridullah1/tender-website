@@ -125,4 +125,8 @@ export class TenderDetailComponent implements OnInit {
 			this.router.navigate(['/bidding', { tenderId, biddingId }]);
 		}
 	}
+
+	onViewPricing(tender: Tender): void {
+		this.router.navigateByUrl(`pricing/${tender.tenderId}`);
+	}
 }

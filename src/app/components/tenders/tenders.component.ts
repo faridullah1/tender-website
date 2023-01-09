@@ -92,8 +92,4 @@ export class TendersComponent implements OnInit, OnDestroy {
 	onViewTenderDetails(tender: Tender): void {
 		this.router.navigateByUrl(`detail/${tender.tenderId}`);
 	}
-
-	onViewPricing(tender: Tender): void {
-		this.router.navigateByUrl(`pricing/${tender.tenderId}`);
-	}
 }

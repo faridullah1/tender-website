@@ -35,7 +35,7 @@
 	
 			<div class="form-group col-sm-5">
 				<label for="priceInNumbers">Duration In Numbers</label>
-				<input id="priceInNumbers" class="form-control" placeholder="Duration In Numbers" formControlName="priceInNumbers">
+				<input type="number" id="priceInNumbers" class="form-control" placeholder="Duration In Numbers" formControlName="priceInNumbers">
 	
 				<div class="alert alert-danger"
 					*ngIf="theForm.get('priceInNumbers')?.touched && theForm.get('priceInNumbers')?.hasError('required')">

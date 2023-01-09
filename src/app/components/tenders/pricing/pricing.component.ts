@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 
 import { ApiService } from 'src/app/services/api.service';
-import { Bid } from './../../../models';
+import { Bid, Tender } from './../../../models';
 import { GenericApiResponse } from 'src/app/models';
 
 
@@ -14,6 +14,7 @@ import { GenericApiResponse } from 'src/app/models';
 })
 export class PricingComponent implements OnInit {
 	tenderId!: number;
+	tender!: Tender;
 	bids: Bid[] = [];
 
 	constructor(private route: ActivatedRoute,
@@ -23,7 +24,18 @@ export class PricingComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.tenderId = +this.route.snapshot.params['tenderId'];
-		this.getAllBids();
+
+		if (this.tenderId) {
+			this.getTenderDetails();
+			this.getAllBids();
+		}
+	}
+
+	getTenderDetails(): void {
+		this.apiService.get(`/tenders/${this.tenderId}`).subscribe({
+			next: (resp: GenericApiResponse) => this.tender = resp.data.tender,
+			error: (error: any) => this.toaster.error(error)
+		});
 	}
 
 	getAllBids(): void {

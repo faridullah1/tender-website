@@ -1,5 +1,5 @@
 <div class="details-container">
-	<div class="box">Tender Details</div>
+	<div class="box">Tender Details</div> 
 
 	<div class="message-panel" *ngIf="message">
 		{{ message }}
@@ -89,6 +89,10 @@
 						&& (user && ['Consultant', 'Contractor', 'Supplier'].includes(user.type))"
 				class="btn btn-primary mr-3" (click)="onParticipate(tender)">
 				Place Bid
+			</button>
+
+			<button class="btn btn-secondary mr-3" *ngIf="tender.remainingTime === 0 && tender.bid?.status" 
+				(click)="onViewPricing(tender)">View Pricing
 			</button>
 
 			<button class="btn btn-primary" routerLink="/tenders">Back</button>

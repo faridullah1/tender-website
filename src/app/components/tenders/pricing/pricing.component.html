@@ -1,9 +1,5 @@
-<div class="bids">
-	<div class="header">
-		<div class="flex">
-			<h2 class="mr-3">Bids prices for Tender Id = {{tenderId}}</h2>
-		</div>
-	</div>
+<div class="bids" *ngIf="tender">
+	<div class="box">Bids prices for Tender #{{tender.tenderNumber}}</div> 
 
 	<div class="content">
 		<table class="table">
